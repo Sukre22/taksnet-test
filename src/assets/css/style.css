@@ -1,3 +1,107 @@
-h1 {
-    color: red;
+*, *:after, *:before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
 }
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #141414;
+    height: 100px;
+    width: 100%;
+}
+
+.header h1{
+    color: #a1a1a1;
+}
+
+.header h1:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.header-films {
+    margin-right: 200px;
+}
+
+.main-films {
+    background-color: #fff;
+    width: 60vw;
+}
+
+input[type="text"] {
+    /* Стили для строки поиска */
+    width: 500px;
+    height: 50px;
+    padding: 5px;
+    font-size: 20px;
+    border: 1px solid #f2f2f2;
+    border-radius: 10px;
+    outline: none;
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+  
+ /* input[type="submit"] {
+    /* Стили для кнопки поиска 
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  } */
+  
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
+    margin-right: 10px;
+    margin-left: 10px;
+    
+  }
+
+  .main-films__tag {      
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+  .main-films__tags {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    
+  }
+
+  .main-films__tags li {
+    display: inline-block;
+    white-space: nowrap;    
+    margin-left: 10px;
+    color: #666666; 
+    /*background-color: #f2f2f2;*/
+    font-size: 25px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    
+  }
+
+  .main-films__tags li:hover {
+    color: #032030;
+    cursor: pointer;
+  } 
+
