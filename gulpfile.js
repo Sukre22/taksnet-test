@@ -15,6 +15,12 @@ gulp.task('copy-json', () => {
     .pipe(browsersync.stream());
 });
 
+gulp.task('copy-json-films', () => {
+  return gulp.src("./src/films.json")
+    .pipe(gulp.dest(dist))
+    .pipe(browsersync.stream());
+});
+
 gulp.task("copy-html", () => {
     return gulp.src("./src/index.html")
                 .pipe(gulp.dest(dist))
@@ -67,12 +73,13 @@ gulp.task("watch", () => {
     });
     
     gulp.watch("./src/tags.json", gulp.parallel("copy-json"));
+    gulp.watch("./src/films.json", gulp.parallel("copy-json"));
     gulp.watch("./src/index.html", gulp.parallel("copy-html"));
     gulp.watch("./src/assets/**/*.*", gulp.parallel("copy-assets"));
     gulp.watch("./src/js/**/*.js", gulp.parallel("build-js"));
 });
 
-gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js", "copy-json"));
+gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js", "copy-json", "copy-json-films"));
 
 gulp.task("build-prod-js", () => {
     return gulp.src("./src/js/main.js")

@@ -115,16 +115,15 @@ input[type="text"] {
   .main-films__name {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #f2f2f2;
     padding-left: 40px;
     padding-right: 40px;
+    font-size: 20px;
+   
   }
 
-  .main-films__name p {
-    font-size: 30px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+  
 
   .bookmark-icon {
     cursor: pointer;

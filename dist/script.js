@@ -2,6 +2,63 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/modules/filmsList.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/filmsList.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string.js */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js/modules/es.promise.js");
+/* harmony import */ var core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.for-each.js */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var filmsList = function filmsList() {
+  fetch('films.json').then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    var filmsList = document.querySelector('.main-films__list');
+    data.forEach(function (item) {
+      // Создание элемента списка
+      var listItem = document.createElement("li");
+
+      // Добавление класса main-films__name
+      listItem.classList.add("main-films__name");
+
+      // Добавление текста названия фильма
+      listItem.textContent = item.title;
+
+      // Создание элемента span
+      var span = document.createElement("span");
+
+      // Добавление классов и текста элемента span
+      span.setAttribute("id", "bookmark");
+      span.classList.add("bookmark-icon");
+      span.textContent = "☆";
+
+      // Добавление элемента span в элемент списка
+      listItem.appendChild(span);
+
+      // Добавление элемента списка в список фильмов
+      filmsList.appendChild(listItem);
+    });
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (filmsList);
+
+/***/ }),
+
 /***/ "./src/js/modules/tagList.js":
 /*!***********************************!*\
   !*** ./src/js/modules/tagList.js ***!
@@ -3833,11 +3890,14 @@ var __webpack_exports__ = {};
   \************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tagList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/tagList */ "./src/js/modules/tagList.js");
+/* harmony import */ var _modules_filmsList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/filmsList */ "./src/js/modules/filmsList.js");
+
 
 window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   (0,_modules_tagList__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  (0,_modules_filmsList__WEBPACK_IMPORTED_MODULE_1__["default"])();
 });
 console.log(1);
 })();
