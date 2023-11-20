@@ -7,6 +7,14 @@ const browsersync = require("browser-sync");
 const dist = "./dist/";
 //const dist = "/MAMP/htdocs";
 
+
+
+gulp.task('copy-json', () => {
+  return gulp.src("./src/tags.json")
+    .pipe(gulp.dest(dist))
+    .pipe(browsersync.stream());
+});
+
 gulp.task("copy-html", () => {
     return gulp.src("./src/index.html")
                 .pipe(gulp.dest(dist))
@@ -58,12 +66,13 @@ gulp.task("watch", () => {
 		notify: true
     });
     
+    gulp.watch("./src/tags.json", gulp.parallel("copy-json"));
     gulp.watch("./src/index.html", gulp.parallel("copy-html"));
     gulp.watch("./src/assets/**/*.*", gulp.parallel("copy-assets"));
     gulp.watch("./src/js/**/*.js", gulp.parallel("build-js"));
 });
 
-gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js"));
+gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-js", "copy-json"));
 
 gulp.task("build-prod-js", () => {
     return gulp.src("./src/js/main.js")
