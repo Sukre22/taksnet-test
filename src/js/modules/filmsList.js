@@ -1,22 +1,16 @@
-
-
 const filmsList = () => {
 
 	const filmsList = document.querySelector('.main-films__list');
 	const searchInput = document.getElementById('searchInput');
-
 	let movies;
 
     fetch('films.json')
     .then(response => response.json())
     .then(data => {
 		movies = data;
-		displayMovies(movies);
-		console.log(movies);
+		displayMovies(movies);		
 	})
-	.catch(error => console.log('Ошибка', error));
-
-	
+	.catch(error => console.log('Ошибка', error));	
 
 
 	searchInput.addEventListener('input', function() {
@@ -24,7 +18,6 @@ const filmsList = () => {
 		const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchTerm));
 		displayMovies(filteredMovies);
 	});
-
 	
 
 	//Отображение фильмов
@@ -35,7 +28,7 @@ const filmsList = () => {
 		}
 
 		//Добавление в список фильмов
-		movies.forEach(item => {
+	movies.forEach(item => {
 	const listItem = document.createElement("li");	
 	listItem.classList.add("main-films__name");	
 	listItem.textContent = item.title;
@@ -48,10 +41,11 @@ const filmsList = () => {
 	
 	listItem.appendChild(span);	
 	filmsList.appendChild(listItem);
-		})
+
+	});
 	
 
-	}            
+  }            
 	   
 };
 

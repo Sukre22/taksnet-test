@@ -39,7 +39,6 @@ var filmsList = function filmsList() {
   }).then(function (data) {
     movies = data;
     displayMovies(movies);
-    console.log(movies);
   })["catch"](function (error) {
     return console.log('Ошибка', error);
   });
