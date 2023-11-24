@@ -5,7 +5,7 @@ import filmsList from './modules/filmsList';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
-    tagList();
+   // tagList();
     filmsList();
     
 
