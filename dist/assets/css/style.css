@@ -137,4 +137,8 @@ input[type="text"] {
     color: orange;
   }
 
+  .active-tag {
+    background-color: #f2f3f6;
+  }
+
 

@@ -2,7 +2,14 @@ const filmsList = () => {
 
 	const filmsList = document.querySelector('.main-films__list');
 	const searchInput = document.getElementById('searchInput');
+	const resetTags = document.querySelector("reset-tag");
+	let actualListOfFilms = [];
+	
 	let movies;
+
+	
+
+
 
     fetch('films.json')
     .then(response => response.json())
@@ -13,11 +20,13 @@ const filmsList = () => {
 	.catch(error => console.log('Ошибка', error));	
 
 
-	searchInput.addEventListener('input', function() {
+	/*searchInput.addEventListener('input', function() {
 		const searchTerm = searchInput.value.toLowerCase();
 		const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchTerm));
 		displayMovies(filteredMovies);
-	});
+	});*/
+
+	
 
 
 	fetch('tags.json')
@@ -38,8 +47,11 @@ const filmsList = () => {
 		const tagElements = document.querySelectorAll('.tag');
 		tagElements.forEach(tagElement => {
 			const tag = tagElement.getAttribute('data-tag');
-			tagElement.addEventListener('click', () => {
+			tagElement.addEventListener('click', () => {				
 				const filteredMovies = movies.filter(movie => movie.tags.includes(tag));
+				console.log(filteredMovies);
+				tagElements.forEach(item => item.classList.remove('active-tag'));
+				tagElement.classList.add('active-tag');			    
 				displayMovies(filteredMovies);
 			})
 		}) 
@@ -47,14 +59,28 @@ const filmsList = () => {
 	})
   
 
-	
+	/*resetTags.addEventListener('click', () => {
+		displayMovies(movies);
+	});*/
 
 
 	searchInput.addEventListener('input', function() {
 		const searchTerm = searchInput.value.toLowerCase();
-		const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchTerm));
-		displayMovies(filteredMovies);
+		const activeTag = document.querySelector('.active-tag');
+		console.log(activeTag.textContent);
+		if (activeTag) {			
+			const filteredMovies = movies.filter(movie => movie.tags.includes(activeTag.textContent) && movie.title.toLowerCase().startsWith(searchInput.value.toLowerCase()));
+			displayMovies(filteredMovies);			
+		} else {
+			const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchInput.value.toLowerCase()));
+        displayMovies(filteredMovies);
+		}
+		
+		
+		
 	});
+
+	
 	
 
 	//Отображение фильмов
@@ -82,7 +108,8 @@ const filmsList = () => {
 	});
 	
 
-  }            
+  }
+           
 	   
 };
 
