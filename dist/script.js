@@ -39,8 +39,8 @@ __webpack_require__.r(__webpack_exports__);
 var filmsList = function filmsList() {
   var filmsList = document.querySelector('.main-films__list');
   var searchInput = document.getElementById('searchInput');
-  var resetTags = document.querySelector("reset-tag");
-  var actualListOfFilms = [];
+  var resetTags = document.querySelector(".reset-tag");
+  var savedSearchTerm = '';
   var movies;
   fetch('films.json').then(function (response) {
     return response.json();
@@ -50,13 +50,6 @@ var filmsList = function filmsList() {
   })["catch"](function (error) {
     return console.log('Ошибка', error);
   });
-
-  /*searchInput.addEventListener('input', function() {
-  	const searchTerm = searchInput.value.toLowerCase();
-  	const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchTerm));
-  	displayMovies(filteredMovies);
-  });*/
-
   fetch('tags.json').then(function (response) {
     return response.json();
   }).then(function (data) {
@@ -76,36 +69,34 @@ var filmsList = function filmsList() {
         var filteredMovies = movies.filter(function (movie) {
           return movie.tags.includes(tag);
         });
-        console.log(filteredMovies);
         tagElements.forEach(function (item) {
           return item.classList.remove('active-tag');
         });
         tagElement.classList.add('active-tag');
         displayMovies(filteredMovies);
+        filterMovies();
       });
     });
   });
-
-  /*resetTags.addEventListener('click', () => {
-  	displayMovies(movies);
-  });*/
-
   searchInput.addEventListener('input', function () {
-    var searchTerm = searchInput.value.toLowerCase();
+    savedSearchTerm = searchInput.value.toLowerCase();
+    filterMovies();
+  });
+  function filterMovies() {
+    var searchTerm = savedSearchTerm;
     var activeTag = document.querySelector('.active-tag');
-    console.log(activeTag.textContent);
     if (activeTag) {
       var filteredMovies = movies.filter(function (movie) {
-        return movie.tags.includes(activeTag.textContent) && movie.title.toLowerCase().startsWith(searchInput.value.toLowerCase());
+        return movie.tags.includes(activeTag.textContent) && movie.title.toLowerCase().startsWith(searchTerm);
       });
       displayMovies(filteredMovies);
     } else {
       var _filteredMovies = movies.filter(function (movie) {
-        return movie.title.toLowerCase().startsWith(searchInput.value.toLowerCase());
+        return movie.title.toLowerCase().startsWith(searchTerm);
       });
       displayMovies(_filteredMovies);
     }
-  });
+  }
 
   //Отображение фильмов
   function displayMovies(movies) {

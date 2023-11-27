@@ -2,9 +2,8 @@ const filmsList = () => {
 
 	const filmsList = document.querySelector('.main-films__list');
 	const searchInput = document.getElementById('searchInput');
-	const resetTags = document.querySelector("reset-tag");
-	let actualListOfFilms = [];
-	
+	const resetTags = document.querySelector(".reset-tag");
+	let savedSearchTerm = '';	
 	let movies;
 
 	
@@ -17,16 +16,7 @@ const filmsList = () => {
 		movies = data;
 		displayMovies(movies);		
 	})
-	.catch(error => console.log('Ошибка', error));	
-
-
-	/*searchInput.addEventListener('input', function() {
-		const searchTerm = searchInput.value.toLowerCase();
-		const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchTerm));
-		displayMovies(filteredMovies);
-	});*/
-
-	
+	.catch(error => console.log('Ошибка', error));		
 
 
 	fetch('tags.json')
@@ -48,37 +38,36 @@ const filmsList = () => {
 		tagElements.forEach(tagElement => {
 			const tag = tagElement.getAttribute('data-tag');
 			tagElement.addEventListener('click', () => {				
-				const filteredMovies = movies.filter(movie => movie.tags.includes(tag));
-				console.log(filteredMovies);
+				const filteredMovies = movies.filter(movie => movie.tags.includes(tag));				
 				tagElements.forEach(item => item.classList.remove('active-tag'));
 				tagElement.classList.add('active-tag');			    
 				displayMovies(filteredMovies);
+				filterMovies();	
 			})
 		}) 
 
-	})
-  
+	}) 	
 
-	/*resetTags.addEventListener('click', () => {
-		displayMovies(movies);
-	});*/
+	searchInput.addEventListener('input', function() {			
+			savedSearchTerm = searchInput.value.toLowerCase();
+			filterMovies();						
+	});
 
 
-	searchInput.addEventListener('input', function() {
-		const searchTerm = searchInput.value.toLowerCase();
+	function filterMovies() {
+		const searchTerm = savedSearchTerm;
 		const activeTag = document.querySelector('.active-tag');
-		console.log(activeTag.textContent);
+		
 		if (activeTag) {			
-			const filteredMovies = movies.filter(movie => movie.tags.includes(activeTag.textContent) && movie.title.toLowerCase().startsWith(searchInput.value.toLowerCase()));
+			const filteredMovies = movies.filter(movie => movie.tags.includes(activeTag.textContent) && movie.title.toLowerCase().startsWith(searchTerm));
 			displayMovies(filteredMovies);			
 		} else {
-			const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchInput.value.toLowerCase()));
+			const filteredMovies = movies.filter(movie => movie.title.toLowerCase().startsWith(searchTerm));
         displayMovies(filteredMovies);
 		}
-		
-		
-		
-	});
+
+
+	}
 
 	
 	
