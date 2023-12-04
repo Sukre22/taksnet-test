@@ -1,12 +1,12 @@
-import tagList from './modules/tagList';
+import bookmarks from './modules/bookmarks';
 import filmsList from './modules/filmsList';
 
 
 
 window.addEventListener('DOMContentLoaded', () => {
-    'use strict';
-   // tagList();
+    'use strict';    
     filmsList();
+   // bookmarks();
     
 
    
