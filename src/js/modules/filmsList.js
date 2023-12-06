@@ -3,6 +3,7 @@ const filmsList = () => {
 	const filmsList = document.querySelector('.main-films__list');
 	const searchInput = document.getElementById('searchInput');
 	const resetTags = document.querySelector(".reset-tag");
+		
 	
 	
 	let savedSearchTerm = '';	
@@ -13,16 +14,9 @@ const filmsList = () => {
     .then(response => response.json())
     .then(data => {
 		movies = data;
-		displayMovies(movies);	
-		const bookmark = document.querySelectorAll('.bookmark-icon');
-		console.log(bookmark);
-		Array.from(bookmark).forEach(item => {
-			item.addEventListener('click', toggleBookmark);
-				
-			
-		});
-		
-		 	
+		displayMovies(movies);
+		toggleStar();
+							 
 	})
 	.catch(error => console.log('Ошибка', error));		
 
@@ -39,6 +33,7 @@ const filmsList = () => {
 		listItem.textContent = item;
 		filmsList.appendChild(listItem);
 	  });
+	 
 	  
 	})
 	.then(data => {
@@ -51,15 +46,17 @@ const filmsList = () => {
 				tagElement.classList.add('active-tag');			    
 				displayMovies(filteredMovies);
 				filterMovies();	
+		        toggleStar();
 				resetTags.addEventListener('click', () => {
 					displayMovies(movies);
 					searchInput.value = '';
 					savedSearchTerm = '';
 				});
-			})
-		}) 
+			});
+		});
+		
 
-	}) 	
+	}); 	
 
 	
 
@@ -112,13 +109,14 @@ const filmsList = () => {
     if (movies.length === 0) {
 		displayNotFoundMovie(); 
 	} else {
-		movies.forEach(item => {
+		movies.forEach(movie => {
 			const listItem = document.createElement("li");	
 			listItem.classList.add("main-films__name");	
-			listItem.textContent = item.title;
+			listItem.textContent = movie.title;
 			
 			const span = document.createElement("span");	
 			span.setAttribute("id", "bookmark");
+			span.setAttribute('data-movie-id', movie.title);
 			span.classList.add("bookmark-icon");
 			span.textContent = "☆";
 		
@@ -127,26 +125,55 @@ const filmsList = () => {
 			filmsList.appendChild(listItem);
 		
 			});
-	}
+			toggleStar();
+	}  	
 	
 	
 
   }
+
+  function toggleStar () {
+	const bookmark = document.querySelectorAll('.bookmark-icon');
+		Array.from(bookmark).forEach(item => {
+			item.addEventListener('click', toggleBookmark);			
+			
+		});
+  }
+
+
   function toggleBookmark (event) { 	  
 			
-				if (event.target.tagName === 'SPAN') {						
+				if (event.target.tagName === 'SPAN') {	
+					const movieId = event.target.dataset.movieId;					
 					const currentColor = event.target.style.color;
 					const newColor = currentColor === 'orange' ? '' : 'orange';
 					event.target.style.color = newColor;
-				 }		 
-	  
-		
+
+					// Получаем или создаем массив закладок из Local Storage
+  					let bookmarks = localStorage.getItem('bookmarks');
+  					bookmarks = bookmarks ? JSON.parse(bookmarks) : [];
+
+					// Добавляем или удаляем фильм из закладок
+ 					 if (newColor === 'orange') {
+   			 			bookmarks.push(movieId);
+  					} else {
+    					const index = bookmarks.indexOf(movieId);
+   					 if (index !== -1) {
+     					 bookmarks.splice(index, 1);
+   						 }
   }
+
+  					// Сохраняем обновленные закладки в Local Storage
+  						localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+				 } 	  
+		  }
 
  
            
  
 };
+
+
 
 
 export default filmsList;
