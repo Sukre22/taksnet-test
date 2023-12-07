@@ -3,11 +3,39 @@ const filmsList = () => {
 	const filmsList = document.querySelector('.main-films__list');
 	const searchInput = document.getElementById('searchInput');
 	const resetTags = document.querySelector(".reset-tag");
+	const bookmarkButton = document.querySelector(".header-bookmarks");
+	const filmsButton = document.querySelector(".header-films");
+	const searchForm = document.querySelector(".main-films__search");
+	const tagList = document.querySelector(".main-films__tag");
+	const headerActive = document.querySelectorAll('h1');
 		
 	
 	
 	let savedSearchTerm = '';	
-	let movies;		
+	let movies;	
+	
+	bookmarkButton.addEventListener('click', () => {
+		searchForm.style.display = "none";
+		tagList.style.display = "none";
+		filmsList.style.display = "none";
+	}); 
+
+	filmsButton.addEventListener('click', () => {
+		searchForm.style.display = "flex";
+		tagList.style.display = "block";
+		filmsList.style.display = "flex";
+	}); 
+
+	headerActive.forEach(function(button) {
+		button.addEventListener('click', () => {
+			
+			headerActive.forEach(function(btn) {
+				btn.classList.remove('active-header');				
+			});
+			  
+			  button.classList.add('active-header');			 
+		});
+	});
 
 
     fetch('films.json')

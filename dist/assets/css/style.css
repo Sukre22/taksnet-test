@@ -24,7 +24,7 @@ header {
     width: 100%;
 }
 
-.header h1{
+h1 {
     color: #a1a1a1;
 }
 
@@ -151,6 +151,10 @@ input[type="text"] {
 
   .active-tag {
     background-color: #f2f3f6;
+  }
+
+  .active-header {
+    color: white;
   }
 
   
