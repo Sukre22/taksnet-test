@@ -168,6 +168,15 @@ const filmsList = () => {
 		});
   }
 
+  /*function isMovieStar () {
+
+	const isBookmarked = bookmarks.includes(movieId);
+
+	if ()
+
+
+  };*/
+
 
   function toggleBookmark (event) { 	  
 			
@@ -181,15 +190,24 @@ const filmsList = () => {
   					let bookmarks = localStorage.getItem('bookmarks');
   					bookmarks = bookmarks ? JSON.parse(bookmarks) : [];
 
-					// Добавляем или удаляем фильм из закладок
- 					 if (newColor === 'orange') {
-   			 			bookmarks.push(movieId);
-  					} else {
-    					const index = bookmarks.indexOf(movieId);
-   					 if (index !== -1) {
-     					 bookmarks.splice(index, 1);
-   						 }
-  }
+					 // Проверяем, есть ли фильм уже в закладках
+    				const isBookmarked = bookmarks.includes(movieId);
+
+					// Если фильм еще не в закладках и цвет звездочки оранжевый,
+    				// то добавляем фильм в закладки
+    				if (!isBookmarked && newColor === 'orange') {
+						bookmarks.push(movieId);
+	 				 }
+	  
+	  				// Если фильм уже в закладках и цвет звездочки не оранжевый,
+	 				 // то удаляем фильм из закладок
+	  				if (isBookmarked && newColor !== 'orange') {
+						const index = bookmarks.indexOf(movieId);
+						if (index !== -1) {
+						  bookmarks.splice(index, 1);
+				}
+			  
+ 			 }
 
   					// Сохраняем обновленные закладки в Local Storage
   						localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
@@ -197,7 +215,7 @@ const filmsList = () => {
 		  }
 
  
-           
+		    
  
 };
 

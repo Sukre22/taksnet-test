@@ -218,6 +218,13 @@ var filmsList = function filmsList() {
       item.addEventListener('click', toggleBookmark);
     });
   }
+
+  /*function isMovieStar () {
+  	const isBookmarked = bookmarks.includes(movieId);
+  	if ()
+  
+  };*/
+
   function toggleBookmark(event) {
     if (event.target.tagName === 'SPAN') {
       var movieId = event.target.dataset.movieId;
@@ -229,10 +236,18 @@ var filmsList = function filmsList() {
       var bookmarks = localStorage.getItem('bookmarks');
       bookmarks = bookmarks ? JSON.parse(bookmarks) : [];
 
-      // Добавляем или удаляем фильм из закладок
-      if (newColor === 'orange') {
+      // Проверяем, есть ли фильм уже в закладках
+      var isBookmarked = bookmarks.includes(movieId);
+
+      // Если фильм еще не в закладках и цвет звездочки оранжевый,
+      // то добавляем фильм в закладки
+      if (!isBookmarked && newColor === 'orange') {
         bookmarks.push(movieId);
-      } else {
+      }
+
+      // Если фильм уже в закладках и цвет звездочки не оранжевый,
+      // то удаляем фильм из закладок
+      if (isBookmarked && newColor !== 'orange') {
         var index = bookmarks.indexOf(movieId);
         if (index !== -1) {
           bookmarks.splice(index, 1);
